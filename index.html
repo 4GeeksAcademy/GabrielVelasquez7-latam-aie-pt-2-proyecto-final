@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Brasaland | Auténtica cocina a la brasa</title>
+    <meta
+      name="description"
+      content="Desde 2008 encendiendo la parrilla. Descubre el verdadero sabor a la brasa de Brasaland en Colombia y Florida. Únete a Brasa Points."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Brasaland",
+        "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1200",
+        "servesCuisine": "Steakhouse, Parrilla, Hamburguesas",
+        "foundingDate": "2008",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Medellin",
+          "addressCountry": "CO"
+        }
+      }
+    </script>
+  </head>
+  <body class="bg-stone-50 font-['Manrope'] text-stone-900 antialiased overflow-x-hidden selection:bg-orange-500 selection:text-white">
+    
+    <!-- Efecto de brasas al fondo (Background Glow) -->
+    <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <div class="absolute -top-40 left-0 h-[40rem] w-[40rem] rounded-full bg-orange-300/25 blur-[110px] sm:bg-orange-400/20"></div>
+      <div class="absolute right-0 top-1/3 h-[30rem] w-[30rem] rounded-full bg-red-300/20 blur-[110px]"></div>
+    </div>
+
+    <!-- Header & Nav -->
+    <header class="sticky top-0 z-50 border-b border-stone-200/90 bg-stone-50/90 backdrop-blur-md">
+      <nav class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Navegación principal">
+        <a href="#inicio" class="group flex items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50" aria-label="Ir al inicio">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-red-600 shadow-lg shadow-orange-500/30 transition-transform group-hover:scale-105 group-active:scale-95">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          </div>
+          <div>
+            <p class="font-['Playfair_Display'] text-xl font-bold tracking-wide text-stone-900">BRASALAND</p>
+            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-orange-500">Medellín • Miami</p>
+          </div>
+        </a>
+
+        <ul class="hidden items-center gap-8 text-sm font-bold uppercase tracking-wider text-stone-700 md:flex">
+          <li><a href="#beneficios" class="rounded-md px-2 py-1 transition-colors hover:text-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500">Por qué elegirnos</a></li>
+          <li><a href="#operacion" class="rounded-md px-2 py-1 transition-colors hover:text-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500">Dos Países</a></li>
+          <li><a href="#fidelizacion" class="rounded-md px-2 py-1 text-orange-400 transition-colors hover:text-orange-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500">Brasa Points</a></li>
+        </ul>
+
+        <a href="application.html" class="inline-flex min-h-[44px] items-center justify-center rounded-full bg-orange-500 px-6 py-2 text-sm font-bold text-white shadow-lg shadow-orange-500/25 transition-all duration-200 hover:bg-orange-600 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50">
+          Únete y Gana
+        </a>
+      </nav>
+    </header>
+
+    <main id="inicio">
+      
+      <!-- 1. Hero Section -->
+      <section class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24" aria-label="Presentación">
+        <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
+          
+          <article class="flex flex-col justify-center space-y-8 lg:pr-8">
+            <div class="space-y-4">
+              <span class="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-orange-600">
+                <span class="h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
+                El fuego está encendido
+              </span>
+              <h1 class="font-['Playfair_Display'] text-5xl font-bold leading-tight text-stone-900 sm:text-6xl lg:text-7xl">
+                Auténtica cocina <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">a la brasa.</span>
+              </h1>
+              <p class="max-w-lg text-lg leading-relaxed text-stone-700 sm:text-xl">
+                Somos Brasaland. Lo que empezó como un único local familiar en 2008, hoy es una cadena de restaurantes que sirve la mejor experiencia al carbón en Colombia y Florida.
+              </p>
+            </div>
+
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+              <a href="application.html" class="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-8 py-3.5 text-base font-bold text-white shadow-xl shadow-orange-500/25 transition-all duration-200 hover:bg-orange-600 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50 sm:w-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                Obtener Brasa Points
+              </a>
+              <a href="#beneficios" class="inline-flex min-h-[48px] w-full items-center justify-center rounded-xl border border-stone-900 bg-stone-900 px-8 py-3.5 text-base font-bold text-stone-100 shadow-xl shadow-orange-950/20 transition-all duration-200 hover:bg-stone-800 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50 sm:w-auto">
+                Conoce nuestro secreto
+              </a>
+            </div>
+          </article>
+
+          <!-- Imagen Hero -->
+          <article class="relative mx-auto w-full max-w-lg lg:max-w-none">
+            <div class="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-tr from-orange-500/20 to-red-600/20 blur-2xl"></div>
+            <img
+              src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1200"
+              alt="Jugoso corte de carne a la parrilla con marcas de fuego"
+              class="relative aspect-[4/5] w-full rounded-[2rem] border border-stone-200 object-cover shadow-2xl lg:aspect-[3/4]"
+            />
+            <!-- Badge flotante -->
+            <div class="absolute -bottom-6 -left-6 rounded-2xl border border-stone-800 bg-stone-900/95 p-4 shadow-xl shadow-orange-950/20 backdrop-blur-md sm:p-5">
+              <div class="flex items-center gap-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/20 text-orange-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <div>
+                  <p class="font-bold text-white">+15 años de calidad</p>
+                  <p class="text-sm text-stone-400">14 restaurantes propios</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 2. SECCIÓN ADICIONAL 1: Características y Beneficios -->
+      <section id="beneficios" class="border-y border-stone-200 bg-stone-100/80 py-20" aria-label="Características principales">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-16 max-w-3xl mx-auto">
+            <h2 class="font-['Playfair_Display'] text-4xl font-bold text-stone-900">Los 3 compromisos de nuestra marca</h2>
+            <p class="mt-4 text-lg text-stone-600">No importa si nos visitas en nuestro local del centro de Medellín o en Florida. Estos pilares son los que construyeron nuestro negocio.</p>
+          </div>
+          
+          <div class="grid gap-10 sm:grid-cols-3">
+            <div class="space-y-4 rounded-3xl border border-stone-800 bg-stone-900 p-5 shadow-xl shadow-orange-950/20 sm:p-6 transition-transform hover:-translate-y-2">
+              <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=600" alt="Parrilla ardiente" class="aspect-video w-full rounded-2xl border border-stone-700 object-cover" />
+              <h3 class="font-['Playfair_Display'] text-2xl font-bold text-stone-100">Sabor Invariable</h3>
+              <p class="text-sm leading-relaxed text-stone-300">Nuestra formación y estándares de calidad garantizan que una hamburguesa o un corte a la brasa se prepare y sepa exactamente igual en los 14 locales de la cadena.</p>
+            </div>
+            <div class="space-y-4 rounded-3xl border border-stone-800 bg-stone-900 p-5 shadow-xl shadow-orange-950/20 sm:p-6 transition-transform hover:-translate-y-2">
+              <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=600" alt="Interior de restaurante cálido" class="aspect-video w-full rounded-2xl border border-stone-700 object-cover" />
+              <h3 class="font-['Playfair_Display'] text-2xl font-bold text-stone-100">Servicio Cálido</h3>
+              <p class="text-sm leading-relaxed text-stone-300">Más que comida, ofrecemos una experiencia. Nuestro equipo se asegura de que la hospitalidad y calidez que nos caracteriza se sienta desde que cruzas la puerta.</p>
+            </div>
+            <div class="space-y-4 rounded-3xl border border-stone-800 bg-stone-900 p-5 shadow-xl shadow-orange-950/20 sm:p-6 transition-transform hover:-translate-y-2">
+              <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=600" alt="Hamburguesa gourmet" class="aspect-video w-full rounded-2xl border border-stone-700 object-cover" />
+              <h3 class="font-['Playfair_Display'] text-2xl font-bold text-stone-100">Cocina Veloz</h3>
+              <p class="text-sm leading-relaxed text-stone-300">Entendemos tu tiempo. Hemos perfeccionado nuestras operaciones en la cocina para que tu comida llegue rápido a la mesa, humeante y en su punto perfecto.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. SECCIÓN ADICIONAL 2: Dos Países. Una sola brasa (Reescrita) -->
+      <section id="operacion" class="py-20" aria-label="Nuestra presencia en dos países">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+            
+            <article class="order-2 lg:order-1 relative rounded-3xl border border-stone-200 bg-white p-8 shadow-2xl">
+              <div class="space-y-8">
+                <!-- Punto 1: El Origen -->
+                <div class="flex items-start gap-4">
+                  <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-stone-900">El origen: Medellín</h3>
+                    <p class="mt-2 text-sm text-stone-600">Aquí nacieron nuestras recetas y se encendió el primer carbón. Sigue siendo la cuna de nuestra sazón y donde nacen las nuevas ideas para nuestro menú.</p>
+                  </div>
+                </div>
+                
+                <!-- Punto 2: La Expansión -->
+                <div class="flex items-start gap-4">
+                  <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-stone-900">El viaje: Miami, Florida</h3>
+                    <p class="mt-2 text-sm text-stone-600">Llevamos el calor de nuestra hospitalidad latina al mercado estadounidense. Un equipo dedicado se asegura de que la experiencia sea igual de auténtica en ambas costas.</p>
+                  </div>
+                </div>
+
+                <!-- Punto 3: El Estándar -->
+                <div class="flex items-start gap-4">
+                  <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-stone-900">Un estándar único</h3>
+                    <p class="mt-2 text-sm text-stone-600">Gracias a ingredientes de altísima calidad y una red de cocineros apasionados, garantizamos que el sabor que pruebas en Colombia sea exactamente el mismo que pruebas en Florida.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="order-1 lg:order-2 space-y-6">
+              <p class="inline-flex items-center rounded-full border border-orange-500/40 bg-orange-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-orange-600">
+                Dos países. Una sola brasa.
+              </p>
+              <h2 class="font-['Playfair_Display'] text-4xl font-bold leading-tight text-stone-900 sm:text-5xl">
+                Llevamos nuestra pasión sin fronteras.
+              </h2>
+              <p class="text-lg leading-relaxed text-stone-700">
+                Pocas cosas unen tanto a las personas como una buena mesa. Servir a miles de comensales semanales en mercados tan distintos requiere más que buenas recetas; requiere un equipo comprometido con la excelencia.
+              </p>
+              <p class="text-base leading-relaxed text-stone-600">
+                Ya sea que nos visites buscando el sabor de casa en Miami o disfrutando de nuestra tradición en Medellín, la calidez de nuestro servicio y el inconfundible aroma a parrilla te recibirán de la misma manera.
+              </p>
+            </article>
+            
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. SECCIÓN ADICIONAL 3: Experiencia e Historia -->
+      <section id="historia" class="py-20 bg-stone-100" aria-label="Historia y evolución">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="mx-auto max-w-3xl text-center mb-16">
+            <h2 class="font-['Playfair_Display'] text-4xl font-bold text-stone-900">De un sueño familiar a la era digital</h2>
+          </div>
+          
+          <div class="relative max-w-4xl mx-auto">
+            <!-- Línea de tiempo (decorativa) -->
+            <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-stone-300 md:-ml-px"></div>
+
+            <div class="space-y-12">
+              <div class="relative flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-5/12 flex justify-start md:justify-end mb-4 md:mb-0">
+                  <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200 w-full text-left md:text-right">
+                    <p class="text-sm font-bold text-orange-500 mb-1">2008</p>
+                    <h4 class="text-xl font-bold text-stone-900 mb-2">Los Orígenes</h4>
+                    <p class="text-sm text-stone-600">Abrimos las puertas de nuestro primer local familiar en Medellín. El objetivo era simple: hacer la mejor comida a la brasa del barrio.</p>
+                  </div>
+                </div>
+                <div class="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-orange-500 ring-4 ring-orange-200 -translate-x-[7px] md:-translate-x-1/2"></div>
+                <div class="md:w-5/12 hidden md:block"></div>
+              </div>
+
+              <div class="relative flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-5/12 hidden md:block"></div>
+                <div class="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-orange-500 ring-4 ring-orange-200 -translate-x-[7px] md:-translate-x-1/2"></div>
+                <div class="md:w-5/12 flex justify-start mb-4 md:mb-0 w-full">
+                  <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-200 w-full text-left">
+                    <p class="text-sm font-bold text-orange-500 mb-1">2019</p>
+                    <h4 class="text-xl font-bold text-stone-900 mb-2">Expansión a Florida</h4>
+                    <p class="text-sm text-stone-600">Bajo el liderazgo de nuestra CEO Mariana Restrepo, la marca da el salto internacional abriendo operaciones comerciales en Miami.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="relative flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-5/12 flex justify-start md:justify-end w-full">
+                  <div class="bg-stone-900 p-6 rounded-2xl shadow-xl shadow-orange-950/20 border border-stone-800 w-full text-left md:text-right">
+                    <p class="text-sm font-bold text-orange-400 mb-1">Presente</p>
+                    <h4 class="text-xl font-bold text-white mb-2">Brasaland Digital</h4>
+                    <p class="text-sm text-stone-300">Con 14 locales operativos, iniciamos nuestra mayor transformación tecnológica para construir sistemas internos modernos, lanzar nuestro CRM y mejorar la experiencia de nuestros clientes.</p>
+                  </div>
+                </div>
+                <div class="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-orange-500 ring-4 ring-stone-900 -translate-x-[7px] md:-translate-x-1/2 z-10"></div>
+                <div class="md:w-5/12 hidden md:block"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Banner de Fidelización (Brasa Points) -->
+      <section id="fidelizacion" class="relative py-24" aria-label="Programa de lealtad">
+        <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div class="relative overflow-hidden rounded-[2.5rem] border border-stone-800 bg-gradient-to-br from-stone-900 to-stone-950 px-6 py-16 text-center shadow-2xl shadow-orange-950/20 sm:px-16 lg:py-20">
+            <!-- Glow background -->
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1508344928928-7165b67de128?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center opacity-10 mix-blend-luminosity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-900/80 to-transparent"></div>
+            
+            <div class="relative z-10 mx-auto max-w-2xl space-y-8">
+              <div class="inline-flex h-20 w-20 items-center justify-center rounded-full bg-orange-500/20 text-orange-500 ring-4 ring-orange-500/10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              
+              <div>
+                <h2 class="font-['Playfair_Display'] text-4xl font-bold text-white sm:text-5xl">Adiós a las tarjetas de cartón.</h2>
+                <p class="mt-4 text-lg text-stone-300">
+                  Lanzamos <strong class="text-orange-400">Brasa Points</strong>, nuestra nueva experiencia digital. Regístrate hoy, acumula puntos con cada corte que pidas y obtén recompensas exclusivas.
+                </p>
+              </div>
+
+              <a href="application.html" class="inline-flex min-h-[56px] items-center justify-center rounded-xl bg-orange-500 px-10 py-4 text-lg font-bold text-white shadow-xl shadow-orange-500/30 transition-all duration-200 hover:bg-orange-600 hover:-translate-y-1 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-900">
+                Crear cuenta Brasa Points
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-stone-800/80 bg-stone-950">
+      <div class="mx-auto grid w-full max-w-7xl gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 lg:px-8">
+        <article class="space-y-6">
+          <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-orange-500"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+            <h2 class="font-['Playfair_Display'] text-2xl font-bold tracking-tight text-stone-100">Brasaland</h2>
+          </div>
+          <p class="max-w-xs text-sm leading-relaxed text-stone-400">
+            Nacimos en 2008 en Medellín. Hoy llevamos nuestra parrilla a 14 locales propios en Colombia y Florida.
+          </p>
+        </article>
+
+        <article class="flex flex-col space-y-3 text-sm text-stone-400 md:items-end md:text-right">
+          <p class="font-bold uppercase tracking-widest text-stone-100 mb-2">Reservas y Contacto</p>
+          <p>Medellín: <span class="text-orange-400">+57 604 000 0000</span></p>
+          <p>Miami (FL): <span class="text-orange-400">+1 305 000 0000</span></p>
+          <p>contacto@brasaland.com</p>
+        </article>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const fieldIds = ["fullName", "email", "phone", "birthDate", "frequentLocation"];
+  const fieldIds = ["fullName", "email", "phonePrefix", "phone", "birthDate", "frequentLocation"];
   const fields = {};
 
   fieldIds.forEach((id) => {
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function normalizePhone(value) {
-    return value.replace(/[^\d+]/g, "");
+    return value.replace(/\D/g, "");
   }
 
   function parseDate(value) {
@@ -139,31 +139,34 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       return "";
     },
+    phonePrefix: (value) => {
+      if (!value) {
+        return "Selecciona el prefijo de tu número (+57 o +1).";
+      }
+      if (!["+57", "+1"].includes(value)) {
+        return "Prefijo inválido.";
+      }
+      return "";
+    },
     phone: (value) => {
+      const prefixError = validators.phonePrefix(fields.phonePrefix?.value || "");
       const normalized = normalizePhone(value);
-      const city = fields.frequentLocation.value;
+
+      if (prefixError) {
+        return "Primero selecciona el prefijo de país (+57 o +1).";
+      }
 
       if (!normalized) {
         return "Este campo es obligatorio.";
       }
 
-      const digits = normalized.replace(/\D/g, "");
-      if (digits.length < 10 || digits.length > 12) {
-        return "Ingresa entre 10 y 12 dígitos incluyendo prefijo internacional si aplica.";
+      if (!/^\d{10}$/.test(normalized)) {
+        return "Escribe exactamente 10 dígitos en el número (sin el prefijo).";
       }
 
-      if (city === "medellin") {
-        const isColombiaValid = /^(\+57\d{10}|\d{10})$/.test(normalized);
-        if (!isColombiaValid) {
-          return "Para Medellín usa un número colombiano (10 dígitos, opcional +57).";
-        }
-      }
-
-      if (city === "miami") {
-        const isUsValid = /^(\+1\d{10}|1\d{10}|\d{10})$/.test(normalized);
-        if (!isUsValid) {
-          return "Para Miami usa un número de USA (10 dígitos, opcional +1).";
-        }
+      const fullPhone = `${fields.phonePrefix.value}${normalized}`;
+      if (!/^(\+57|\+1)\d{10}$/.test(fullPhone)) {
+        return "Número inválido para el prefijo seleccionado.";
       }
 
       return "";
@@ -239,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
       field.addEventListener(primaryEvent, () => {
         validateField(fieldId, { showNeutralIfEmpty: !isSelect });
 
-        if (fieldId === "frequentLocation") {
+        if (fieldId === "phonePrefix") {
           validateField("phone", { showNeutralIfEmpty: true });
         }
 

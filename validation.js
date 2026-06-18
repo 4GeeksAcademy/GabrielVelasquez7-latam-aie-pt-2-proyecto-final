@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } 
     else if (id === "email") {
       if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-        errorMsg = "Ingresa un email válido (ejemplo: nombre@correo.com)";
+        errorMsg = "Ingresa un email válido (ejemplo: <nombre@correo.com>)";
       }
     } 
     // --- LÓGICA DE TELÉFONO BLINDADA ---

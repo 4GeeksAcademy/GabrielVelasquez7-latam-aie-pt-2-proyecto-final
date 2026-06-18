@@ -1,251 +1,200 @@
-function initBrasalandValidation() {
+document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("brasalandApplicationForm");
-  const formHeader = document.getElementById("formHeader");
   const formMessage = document.getElementById("formMessage");
   const successContainer = document.getElementById("successContainer");
-  const registerAnotherBtn = document.getElementById("registerAnotherBtn");
+  const formHeader = document.getElementById("formHeader");
+  
   const countrySelect = document.getElementById("country");
   const citySelect = document.getElementById("city");
+  const locationSelect = document.getElementById("favoriteLocation");
 
-  if (!form || !formMessage || !successContainer) return;
+  if (!form) return;
 
-  // 1. LÓGICA DE CIUDAD DINÁMICA
-  const citiesByCountry = {
-    colombia: ["Medellín", "Bogotá", "Cali", "Barranquilla"],
-    usa: ["Miami", "Orlando", "Tampa", "Fort Lauderdale"]
+  // 1. LÓGICA DE CAMPOS DEPENDIENTES EXACTA DEL CONTEXTO
+  const cascadeData = {
+    "Colombia": {
+      "Medellín": ["Brasaland El Poblado", "Brasaland Laureles", "Brasaland Envigado", "Brasaland Sabaneta"],
+      "Bogotá": ["Brasaland Usaquén", "Brasaland Chapinero", "Brasaland Zona Rosa"],
+      "Cali": ["Brasaland Granada", "Brasaland Ciudad Jardín", "Brasaland Unicentro"]
+    },
+    "Estados Unidos": {
+      "Miami": ["Brasaland Brickell", "Brasaland Coral Gables"],
+      "Orlando": ["Brasaland Downtown", "Brasaland International Drive"]
+    }
   };
 
-  if (countrySelect && citySelect) {
-    countrySelect.addEventListener("change", (e) => {
-      const selectedCountry = e.target.value;
-      citySelect.innerHTML = '<option value="" selected disabled>Selecciona tu ciudad...</option>';
-      
-      if (selectedCountry && citiesByCountry[selectedCountry]) {
-        citiesByCountry[selectedCountry].forEach(city => {
-          const option = document.createElement("option");
-          option.value = city.toLowerCase();
-          option.textContent = city;
-          citySelect.appendChild(option);
-        });
-        citySelect.disabled = false;
-        citySelect.classList.remove("disabled:opacity-50", "disabled:cursor-not-allowed");
-      } else {
-        citySelect.disabled = true;
-        citySelect.classList.add("disabled:opacity-50", "disabled:cursor-not-allowed");
-      }
-      
-      // Re-validar la ciudad si ya había sido tocada
-      validateField("city", { showNeutralIfEmpty: true });
-    });
-  }
+  countrySelect.addEventListener("change", (e) => {
+    const country = e.target.value;
+    citySelect.innerHTML = '<option value="" selected disabled>Selecciona ciudad</option>';
+    locationSelect.innerHTML = '<option value="" selected disabled>Selecciona ciudad primero</option>';
+    locationSelect.disabled = true;
 
-  // 2. CONFIGURACIÓN DE CAMPOS Y VALIDACIONES
-  const fieldIds = ["fullName", "email", "phone", "birthDate", "country", "city", "favoriteLocation", "preferences", "howDidYouHear", "terms"];
-  const fields = {};
-
-  fieldIds.forEach((id) => {
-    fields[id] = document.getElementById(id);
+    if (country && cascadeData[country]) {
+      Object.keys(cascadeData[country]).forEach(city => {
+        citySelect.add(new Option(city, city));
+      });
+      citySelect.disabled = false;
+    } else {
+      citySelect.disabled = true;
+    }
   });
 
-  const validClassList = ["border-emerald-400", "ring-1", "ring-emerald-400"];
-  const invalidClassList = ["border-red-400", "ring-1", "ring-red-400"];
-  const neutralClassList = ["border-stone-700", "ring-0"];
-
-  function ensureErrorNode(field) {
-    const messageId = `${field.id}Error`;
-    let node = document.getElementById(messageId);
-
-    if (!node) {
-      node = document.createElement("p");
-      node.id = messageId;
-      node.className = "hidden text-xs font-medium text-red-400 mt-1";
-      node.setAttribute("aria-live", "polite");
-      
-      if (field.type === "checkbox") {
-        field.parentElement.insertAdjacentElement("afterend", node);
-      } else {
-        field.insertAdjacentElement("afterend", node);
-      }
-    }
-
-    if (!field.hasAttribute("aria-describedby")) {
-      field.setAttribute("aria-describedby", messageId);
-    }
-
-    return node;
-  }
-
-  function setFieldVisualState(field, state, message = "") {
-    const errorNode = ensureErrorNode(field);
+  citySelect.addEventListener("change", (e) => {
+    const country = countrySelect.value;
+    const city = e.target.value;
     
-    if (field.type !== "checkbox") {
-      field.classList.remove(...validClassList, ...invalidClassList, ...neutralClassList);
+    locationSelect.innerHTML = '<option value="" selected disabled>Selecciona ubicación favorita</option>';
+    
+    if (country && city && cascadeData[country][city]) {
+      cascadeData[country][city].forEach(loc => locationSelect.add(new Option(loc, loc)));
+      locationSelect.disabled = false;
+    } else {
+      locationSelect.disabled = true;
     }
+  });
 
-    if (state === "valid") {
-      if (field.type !== "checkbox") field.classList.add(...validClassList);
-      errorNode.textContent = "";
-      errorNode.classList.add("hidden");
-      field.setAttribute("aria-invalid", "false");
-      return;
-    }
-
-    if (state === "invalid") {
-      if (field.type !== "checkbox") field.classList.add(...invalidClassList);
-      errorNode.textContent = message;
-      errorNode.classList.remove("hidden");
-      field.setAttribute("aria-invalid", "true");
-      return;
-    }
-
-    if (field.type !== "checkbox") field.classList.add(...neutralClassList);
-    errorNode.textContent = "";
-    errorNode.classList.add("hidden");
-    field.removeAttribute("aria-invalid");
-  }
-
-  function setFormMessage(type, message) {
-    formMessage.className = "empty:hidden rounded-xl px-4 py-3 text-sm font-medium transition-all mt-4";
-
-    if (type === "error") {
-      formMessage.classList.add("border", "border-red-400/60", "bg-red-500/10", "text-red-200");
-      formMessage.textContent = message;
-      return;
-    }
-
-    formMessage.textContent = "";
-  }
-
-  const validators = {
-    fullName: (val) => val.trim().length >= 3 ? "" : "Nombre completo: ingresa al menos 3 caracteres.",
-    email: (val) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val.trim()) ? "" : "Correo electrónico: ingresa un formato válido.",
-    phone: (val) => val.replace(/\D/g, "").length >= 10 ? "" : "Teléfono: ingresa al menos 10 dígitos.",
-    birthDate: (val) => {
-      if (!val) return "Fecha de nacimiento: este campo es obligatorio.";
-      const date = new Date(val);
-      const age = new Date().getFullYear() - date.getFullYear();
-      // Regla explícita +18 para la evaluación
-      return age >= 18 ? "" : "Fecha de nacimiento: debes ser mayor de 18 años.";
-    },
-    country: (val) => val ? "" : "País: selecciona una opción.",
-    city: (val) => val ? "" : "Ciudad: selecciona una opción.",
-    favoriteLocation: (val) => val.trim().length >= 3 ? "" : "Ubicación favorita: indícanos el local.",
-    preferences: (val) => val ? "" : "Preferencias: selecciona tu plato favorito.",
-    howDidYouHear: (val) => val ? "" : "Origen: dinos cómo nos conociste.",
-    terms: () => fields.terms && fields.terms.checked ? "" : "Términos: debes aceptar las políticas para continuar."
-  };
-
-  function validateField(fieldId, options = { showNeutralIfEmpty: false }) {
-    const field = fields[fieldId];
+  // 2. VALIDACIONES Y MENSAJES LITERALES
+  function validateField(id) {
+    const field = document.getElementById(id);
     if (!field) return true;
 
-    const value = field.type === "checkbox" ? field.checked : field.value;
-    const validator = validators[fieldId];
-    const errorMessage = validator(value);
+    const errorId = id + "Error";
+    let errorNode = document.getElementById(errorId);
+    
+    if (!errorNode) {
+      errorNode = document.createElement("p");
+      errorNode.id = errorId;
+      errorNode.className = "text-xs font-bold text-red-400 mt-1.5";
+      if(field.type === "checkbox") {
+        field.parentElement.insertAdjacentElement("afterend", errorNode);
+      } else {
+        field.insertAdjacentElement("afterend", errorNode);
+      }
+    }
+    
+    let errorMsg = "";
+    const val = field.type === "checkbox" ? field.checked : field.value.trim();
 
-    if (!errorMessage) {
-      setFieldVisualState(field, "valid");
+    // Reglas literales
+    if (id === "fullName") {
+      if (!val || val.split(" ").filter(Boolean).length < 2) {
+        errorMsg = "Ingresa tu nombre completo (nombre y apellido)";
+      }
+    } 
+    else if (id === "email") {
+      if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+        errorMsg = "Ingresa un email válido (ejemplo: nombre@correo.com)";
+      }
+    } 
+    // --- LÓGICA DE TELÉFONO BLINDADA ---
+    else if (id === "phone") {
+      // Quitamos todos los espacios vacíos que el usuario pueda poner
+      const cleanPhone = val.replace(/\s+/g, '');
+      const phoneError = "El teléfono debe incluir código de país (ejemplo: +57 300 123 4567 o +1 305 123 4567)";
+
+      if (!cleanPhone) {
+        errorMsg = phoneError;
+      } else if (!cleanPhone.startsWith("+57") && !cleanPhone.startsWith("+1")) {
+        errorMsg = phoneError;
+      } else if (!/^\+\d+$/.test(cleanPhone)) {
+        errorMsg = phoneError;
+      } else if (!/^(?:\+57\d{10}|\+1\d{10})$/.test(cleanPhone)) {
+        errorMsg = phoneError;
+      }
+    } 
+    // -----------------------------------
+    else if (id === "country") {
+      if (!val) errorMsg = "Selecciona tu país";
+    } 
+    else if (id === "city") {
+      if (!val) errorMsg = "Selecciona tu ciudad";
+    } 
+    else if (id === "howDidYouHear") {
+      if (!val) errorMsg = "Cuéntanos cómo conociste Brasaland";
+    } 
+    else if (id === "birthDate") {
+      if (!val) {
+         errorMsg = "Debes ser mayor de 18 años para registrarte en Brasa Points";
+      } else {
+         const date = new Date(val);
+         let age = new Date().getFullYear() - date.getFullYear();
+         const monthDiff = new Date().getMonth() - date.getMonth();
+         // Ajuste preciso de cumpleaños
+         if (monthDiff < 0 || (monthDiff === 0 && new Date().getDate() < date.getDate())) {
+             age--;
+         }
+         
+         if (age < 18) {
+           errorMsg = "Debes ser mayor de 18 años para registrarte en Brasa Points";
+         }
+      }
+    } 
+    else if (id === "terms") {
+      if (!val) errorMsg = "Debes aceptar los términos del programa Brasa Points para continuar";
+    }
+
+    // Aplicación visual de los errores
+    if (errorMsg) {
+      field.setCustomValidity(errorMsg);
+      if(field.type !== "checkbox") {
+        field.classList.remove("border-stone-700", "focus:border-orange-500");
+        field.classList.add("border-red-400", "focus:border-red-500");
+      }
+      errorNode.textContent = errorMsg;
+      errorNode.style.display = "block";
+      return false;
+    } else {
+      field.setCustomValidity("");
+      if(field.type !== "checkbox") {
+        field.classList.remove("border-red-400", "focus:border-red-500");
+        field.classList.add("border-stone-700", "focus:border-orange-500");
+      }
+      errorNode.style.display = "none";
       return true;
     }
-
-    if (options.showNeutralIfEmpty && (value === "" || value === false)) {
-      setFieldVisualState(field, "neutral");
-      return false;
-    }
-
-    setFieldVisualState(field, "invalid", errorMessage);
-    return false;
   }
 
-  function validateAllFields() {
+  // 3. ENVÍO Y MOSTRAR PANTALLA DE ÉXITO
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const reqFields = ["fullName", "email", "phone", "country", "city", "howDidYouHear", "birthDate", "terms"];
     let isValid = true;
-    fieldIds.forEach((fieldId) => {
-      if (!validateField(fieldId)) isValid = false;
-    });
-    return isValid;
-  }
-
-  // Validación en tiempo real
-  fieldIds.forEach((fieldId) => {
-    const field = fields[fieldId];
-    if (!field) return;
-
-    const isSelect = field.tagName.toLowerCase() === "select";
-    const isCheckbox = field.type === "checkbox";
-    const primaryEvent = (isSelect || isCheckbox) ? "change" : "input";
-
-    field.addEventListener(primaryEvent, () => {
-      validateField(fieldId, { showNeutralIfEmpty: !(isSelect || isCheckbox) });
-      setFormMessage("idle", "");
+    
+    // Forzamos validar todos los campos para que salgan en rojo si están mal
+    reqFields.forEach(id => {
+      if (!validateField(id)) isValid = false;
     });
 
-    if (!isCheckbox) {
-      field.addEventListener("blur", () => {
-        validateField(fieldId);
-      });
+    if (isValid) {
+      // Ocultar formulario, mostrar éxito
+      form.classList.add("hidden");
+      if(formHeader) formHeader.classList.add("hidden");
+      formMessage.classList.add("hidden");
+      
+      successContainer.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Aviso de que hay errores
+      formMessage.className = "rounded-xl px-4 py-3 text-sm font-medium mt-4 border border-red-400 bg-red-500/10 text-red-200 block";
+      formMessage.textContent = "Por favor, corrige los errores señalados en rojo antes de enviar el formulario.";
+      
+      // Poner el foco en el primer error encontrado
+      const firstError = reqFields.find(id => document.getElementById(id + "Error")?.style.display === "block");
+      if(firstError) document.getElementById(firstError).focus();
     }
   });
 
-  // 3. LÓGICA DE SUBMIT Y PANTALLA DE ÉXITO
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    if (!validateAllFields()) {
-      setFormMessage("error", "Revisa los campos marcados en rojo antes de continuar.");
-      
-      // Enfocar el primer campo con error
-      const firstInvalidField = fieldIds
-        .map((id) => fields[id])
-        .find((field) => field && field.getAttribute("aria-invalid") === "true");
-
-      if (firstInvalidField) firstInvalidField.focus();
-      return;
+  // 4. VALIDACIÓN EN TIEMPO REAL
+  ["fullName", "email", "phone", "birthDate"].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) {
+      el.addEventListener("input", () => validateField(id));
+      el.addEventListener("blur", () => validateField(id));
     }
-
-    // SI TODO ESTÁ BIEN: Ocultar form y mostrar pantalla bonita
-    form.classList.add("hidden");
-    if (formHeader) formHeader.classList.add("hidden");
-    
-    successContainer.classList.remove("hidden");
-    
-    // Subir suavemente al tope del contenedor de éxito
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-
-  // Limpiar formulario y resetear estados
-  form.addEventListener("reset", () => {
-    window.setTimeout(() => {
-      fieldIds.forEach((fieldId) => {
-        const field = fields[fieldId];
-        if (field) setFieldVisualState(field, "neutral");
-      });
-      setFormMessage("idle", "");
-      if (citySelect) {
-        citySelect.innerHTML = '<option value="" selected disabled>Selecciona el país primero</option>';
-        citySelect.disabled = true;
-        citySelect.classList.add("disabled:opacity-50", "disabled:cursor-not-allowed");
-      }
-    }, 0);
+  
+  ["country", "city", "howDidYouHear", "terms"].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.addEventListener("change", () => validateField(id));
   });
-
-  // Botón para registrar a otra persona (reinicia el estado)
-  if (registerAnotherBtn) {
-    registerAnotherBtn.addEventListener("click", () => {
-      form.reset();
-      
-      // Volver a mostrar el formulario
-      successContainer.classList.add("hidden");
-      if (formHeader) formHeader.classList.remove("hidden");
-      form.classList.remove("hidden");
-      
-      fields.fullName.focus();
-    });
-  }
-}
-
-// Inicialización segura para Live Servers
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initBrasalandValidation);
-} else {
-  initBrasalandValidation();
-}
+});
